@@ -1,0 +1,51 @@
+{%extends "myapp/base.html"%}
+
+{%load static%}
+
+{% block title%} Tasks Done {%endblock%}
+<h2>list of created tasks</h2>
+
+{% block task_list%}
+{% if object_list %}
+<div id="task-div" style="width: 50%; height: 500px;">
+<h1> Lets get some work done!</h1>
+    <ul>
+        <label class="list-group-item d-flex gap-3">
+            <span class="pt-1 form-checked-content">
+              <strong>Create here! </strong>
+              {%comment%}<small class="d-block text-muted">
+                <svg class="bi me-1" width="1em" height="1em"><use xlink:href="#calendar-event"></use></svg>
+                small text here
+              </small>
+              {%endcomment%}
+              <div id="form-div" >
+                <form method="post" class="create-form">
+                    {% csrf_token%}
+                    {{form.as_p}}
+                    <input type="submit">
+                </form>
+                </div>
+            </span>
+          </label>
+
+    {% for task in object_list %}
+    <label class="list-group-item d-flex gap-3">
+        <input class="form-check-input flex-shrink-0" type="checkbox" value="" checked="task.completed" style="font-size: 1.375em;">
+        <span class="pt-1 form-checked-content">
+          <strong><a href="{% url 'myapp:task-detail' task.pk %}">{{ task.title }}</a> - {{ task.description }}</strong>
+          
+        </span>
+      </label>
+      {% endfor %}
+  </ul>
+</div>
+{% else %}
+  <p>No instances found.</p>
+{% endif %}
+
+
+{% endblock  %}
+
+{% block styles %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+{% endblock %}
