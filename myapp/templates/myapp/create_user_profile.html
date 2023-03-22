@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        yup! thats registeration page...
+        <div id="form-div" >
+            <form method="post" class="create-form">
+                {% csrf_token%}
+                {{form.as_p}}
+                <input type="submit">
+            </form>
+    </body>
+</html>

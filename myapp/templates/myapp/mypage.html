@@ -2,13 +2,20 @@
 
 {%load static%}
 
-{% block title%} Tasks Done {%endblock%}
 <h2>list of created tasks</h2>
 
 {% block task_list%}
-{% if object_list %}
-<div id="task-div" style="width: 50%; height: 500px;">
-<h1> Lets get some work done!</h1>
+
+
+<div id="dashboard" style="border: 3px; border-color: black; position: absolute; right: 45px;">
+    
+        {% if user_content %}
+     <p>{{ user_content }}</p>
+{% endif %}
+    
+</div>
+
+<div id="task-div" style="width: 50%; height: 500px; padding-top: 25px; padding-right: 25px;">
     <ul>
         <label class="list-group-item d-flex gap-3">
             <span class="pt-1 form-checked-content">
@@ -28,6 +35,7 @@
             </span>
           </label>
 
+          {% if object_list %}
     {% for task in object_list %}
     <label class="list-group-item d-flex gap-3">
         <input class="form-check-input flex-shrink-0" type="checkbox" value="" checked="task.completed" style="font-size: 1.375em;">
@@ -43,9 +51,7 @@
   <p>No instances found.</p>
 {% endif %}
 
-
 {% endblock  %}
-
 {% block styles %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 {% endblock %}
